@@ -1,0 +1,5 @@
+streamlit
+dbt-core
+dbt-clickhouse
+kafka-python-ng
+boto3
