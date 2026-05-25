@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: s3_sources
+    database: alexey_shumakov
+    tables:
+      - name: lab08_transactions_s3
+      - name: lab08_cancellations_s3
+      - name: lab08_exchange_rates_s3
+      - name: lab08_users
+      - name: lab08_test_users
+      - name: lab08_promo_codes
