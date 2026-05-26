@@ -1,0 +1,22 @@
+npl_dbt_lab:
+  target: npl_dev
+  outputs:
+    npl_dev:
+      type: clickhouse
+      schema: alexey_shumakov
+      user: alexey_shumakov
+      password: 5F8LFuwQrhZkT56d
+      driver: native
+      port: 9000
+      host: "37.139.35.197"
+lab08_dbt:
+  target: lab08_dev
+  outputs:
+    lab08_dev:
+      type: clickhouse
+      schema: alexey_shumakov
+      user: alexey_shumakov
+      password: 5F8LFuwQrhZkT56d
+      driver: native
+      port: 9000
+      host: "37.139.35.197"
