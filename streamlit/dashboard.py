@@ -218,3 +218,10 @@ cohort_chart = px.imshow(
         color_continuous_scale="Blues"
         )
 st.plotly_chart(cohort_chart, width="content")
+
+st.subheader("Cancellations")
+cancellation_percentage = client.query_df(queries.cancellation_percentage_query)
+st.metric(
+    label="% of cancellations",
+    value=f"{cancellation_percentage['canc_perc'][0]}"
+        )

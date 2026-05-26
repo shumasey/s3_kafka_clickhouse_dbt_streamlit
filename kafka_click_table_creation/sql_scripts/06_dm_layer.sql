@@ -58,18 +58,18 @@ with trx as (
          , 1 as join_key
       from $click_user.lab08_mv_rates_deduped
 )
-select trx.transaction_id,
-       trx.user_id,
-       trx.user_uuid,
-       trx.status,
-       trx.transaction_type,
-       trx.promo_code_id,
+select trx.transaction_id as transaction_id,
+       trx.user_id as user_id,
+       trx.user_uuid as user_uuid,
+       trx.status as status,
+       trx.transaction_type as transaction_type,
+       trx.promo_code_id as promo_code_id,
        trx.created_at as trx_datetime,
-       trx.trx_date,
-       trx.trx_weekday,
-       trx.trx_hour,
-       trx.abs_amount,
-       trx.currency,
+       trx.trx_date as trx_date,
+       trx.trx_weekday as trx_weekday,
+       trx.trx_hour as trx_hour,
+       trx.abs_amount as abs_amount,
+       trx.currency as currency,
        case
            when trx.currency = 'TGRK' then trx.abs_amount
            else trx.abs_amount * coalesce(rates.rate_tgrk_rub, 1.0)
@@ -83,14 +83,13 @@ select trx.transaction_id,
            else 1
        end is_real_user,
        case
-           when cnl.original_transaction_id is not null then 1
+           when cnl.original_transaction_id > 0  then 1
            else 0
        end is_cancelled,
        case
            when trx.promo_code_id <> 0 then 1
            else 0
        end as is_promo_used,
-       trx.promo_code_id,
        promo.expiry_date,
        case
            when trx.promo_code_id <> 0 and trx.created_at > promo.expiry_date then 1

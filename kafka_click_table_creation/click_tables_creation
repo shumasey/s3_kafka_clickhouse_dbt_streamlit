@@ -1,8 +1,8 @@
-export click_host=37.139.35.197
-export click_user=alexey_shumakov
-export click_pass=5F8LFuwQrhZkT56d
-export kafka_host=kafka.ijklmn.xyz
-export kafka_port=9092
+export CLICK_HOST=37.139.35.197
+export CLICK_USER=alexey_shumakov
+export CLICK_PASS=5F8LFuwQrhZkT56d
+export KAFKA_HOST=kafka.ijklmn.xyz
+export KAFKA_PORT=9092
 
 for sql in sql_scripts/*.sql; do
     envsubst < "$sql" | clickhouse-client \

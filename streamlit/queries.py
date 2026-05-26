@@ -104,3 +104,14 @@ group by first_purchase_day, days_passed
 order by first_purchase_day, days_passed
 
 """
+cancellation_percentage_query = """
+with cte as (
+    select transaction_id,
+           is_cancelled
+      from alexey_shumakov.lab08_dm_base_common
+)
+select countIf(is_cancelled='ДА') as cancelled_cnt,
+       count() as total_cnt,
+       round(cancelled_cnt * 100 / total_cnt, 2) as canc_perc
+  from cte
+"""
