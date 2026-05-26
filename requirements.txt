@@ -1,4 +1,7 @@
 streamlit
+clickhouse_connect
+pandas
+plotly
 dbt-core
 dbt-clickhouse
 kafka-python-ng
