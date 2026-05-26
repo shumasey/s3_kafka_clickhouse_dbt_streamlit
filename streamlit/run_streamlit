@@ -1,7 +1,7 @@
-export click_host=10.0.0.254
-export click_user='alexey_shumakov'
-export click_port=8123
-export click_pass='5F8LFuwQrhZkT56d'
+export CLICK_HOST=10.0.0.254
+export CLICK_USER='alexey_shumakov'
+export CLICK_PORT=8123
+export CLICK_PASS='5F8LFuwQrhZkT56d'
 uv run --with clickhouse-connect --with streamlit --with plotly \
 	streamlit run dashboard.py --server.headless True
 
