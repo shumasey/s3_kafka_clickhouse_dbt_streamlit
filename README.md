@@ -1,5 +1,6 @@
 # Лаба 8 Проект - Транзакционная аналитика
 
+<<<<<<< HEAD
 ![pipe_schema.jpg](/img/pipe_schema.jpg)
 
 ##Kafka and Clickhouse
@@ -11,6 +12,9 @@ chmod +x click_table_creation
 ./click_table_creation
 ```
 После этого создадутся таблицы пригодные для использования в дашборде 
+=======
+![pipe_schema.jpg](img/pipe_schema.jpg)
+>>>>>>> 70ac4b7a36708b9f888709c73c8c2ae68e981e24
 
 ## Streamlit
 
