@@ -4,7 +4,7 @@ lab08_dbt:
     lab08_dev:
       type: clickhouse
       host: "{{ env_var('CLICK_HOST') }}"
-      port: {{ env_var('CLICK_PORT') | int }}
+      port: "{{ env_var('CLICK_PORT') | int }}"
       user: "{{ env_var('CLICK_USER') }}"
       password: "{{ env_var('CLICK_PASS') }}"
       schema: "{{ env_var('CLICK_DB') }}"
