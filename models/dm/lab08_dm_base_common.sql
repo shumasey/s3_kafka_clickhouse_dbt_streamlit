@@ -86,7 +86,7 @@ SELECT
     -- Определение отмены (Флаг cancelled)
     -- Условие: совпадение ID, сумм и дата отмены = дата транзакции + 1 день
     CASE 
-        WHEN c.cancellation_id IS NOT NULL THEN 'ДА'
+        WHEN c.cancellation_id > 0 THEN 'ДА'
         ELSE 'НЕТ'
     END AS is_cancelled,
 
