@@ -15,10 +15,10 @@ if refresh_toggle:
         st.session_state.last_refresh = time.time()
         st.rerun()
 
-click_user=os.environ["click_user"]
-click_host=os.environ["click_host"]
-click_port=os.environ["click_port"]
-click_pass=os.environ["click_pass"]
+click_user=os.environ["CLICK_USER"]
+click_host=os.environ["CLICK_HOST"]
+click_port=os.environ["CLICK_PORT"]
+click_pass=os.environ["CLICK_PASS"]
 
 client = clickhouse_connect.get_client(
     host=click_host,
