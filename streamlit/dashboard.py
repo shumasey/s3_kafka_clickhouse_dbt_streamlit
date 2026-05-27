@@ -6,7 +6,7 @@ import os
 import time
 import queries
 
-refresh_toggle = st.toggle("Auto_refresh each 5 seconds", value = True)
+refresh_toggle = st.toggle("Refresh", value = True)
 if refresh_toggle:
     if "last_refresh" not in st.session_state:
         st.session_state.last_refresh = time.time()
@@ -27,31 +27,6 @@ client = clickhouse_connect.get_client(
     password=click_pass
 )
 
-#weekdays = st.multiselect(
-#    "Choose days",
-#    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-#    default = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] 
-#        )
-#week_mapping = {
-#    "Monday": 1, 
-#    "Tuesday": 2, 
-#    "Wednesday": 3,
-#    "Thursday":4, 
-#    "Friday":5, 
-#    "Saturday":6,
-#    "Sunday":7
-#        }
-#weekday_chosen = [week_mapping[w] for w in weekdays]
-##if weekday_chosen:
-#    in_clause = ",".join(str(x) for x in weekday_chosen)
-#    where_clause = f"where trx_weekday in ({in_clause})"
-#else:
-#    where_clause = ""
-#
-#def apply_where_clause(sql):
-#    if not weekday_chosen:
-#        return sql
-#    sql = sql + f" "
 
 st.set_page_config(layout="wide")
 leave_only_real_users = st.toggle("Leave only real users")
@@ -61,9 +36,7 @@ def toggle_filter(df):
     if leave_only_real_users:
         return df[df["is_real_user"] == 1]
     return df
-# -----------------------------
-# KPI: total transactions
-# -----------------------------
+
 left, right = st.columns(2)
 with left:
     st.markdown("Сколько всего было транзакций")
@@ -78,14 +51,8 @@ with right:
             label='kafka last 5 minutes event counter',
             value=f"{kafka_cnt['cnt'].iloc[0]:,}"
             )
-# -----------------------------
-# Two-column layout
-# -----------------------------
 left, right = st.columns([1, 1])
 
-# -----------------------------
-# LEFT: Bar chart (transactions per hour)
-# -----------------------------
 with left:
     st.subheader("Распределение транзакций по часам")
 
@@ -104,9 +71,6 @@ with left:
 
     st.plotly_chart(fig_bar, width="content", on_select="rerun")
 
-# -----------------------------
-# RIGHT: Pie chart (purchases per hour)
-# -----------------------------
 with right:
     st.subheader("Распределение покупок по часам")
 
@@ -124,9 +88,6 @@ with right:
 
     st.plotly_chart(fig_pie, width="content", on_select="rerun")
 
-# -----------------------------
-# Revenue in base currency (daily)
-# -----------------------------
 st.subheader("Выручка в базовой валюте")
 
 df_rev = client.query_df(queries.revenue_in_base_ccy)
