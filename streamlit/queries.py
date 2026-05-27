@@ -100,6 +100,7 @@ select first_purchase_day
      , days_passed
      , countDistinct(user_id) as users_cnt
   from cte
+ where days_passed > 0
 group by first_purchase_day, days_passed
 order by first_purchase_day, days_passed
 
@@ -114,4 +115,17 @@ select countIf(is_cancelled='ДА') as cancelled_cnt,
        count() as total_cnt,
        round(cancelled_cnt * 100 / total_cnt, 2) as canc_perc
   from cte
+"""
+cancellation_reasons = """
+
+with canc_cte as (
+
+    select distinct reason
+         , count() over(partition by reason) as reason_cnt
+         , count()  over() as overall_cnt
+      from alexey_shumakov.lab08_core_cancellations
+)
+select reason
+     ,  round(reason_cnt * 100 / overall_cnt, 2) as canc_reason_percentage
+  from canc_cte
 """

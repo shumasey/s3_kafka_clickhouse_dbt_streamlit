@@ -37,18 +37,23 @@ def toggle_filter(df):
         return df[df["is_real_user"] == 1]
     return df
 
-left, right = st.columns(2)
+left, middle, right = st.columns(3)
 with left:
-    st.markdown("Сколько всего было транзакций")
     cnt = client.query_df(queries.basic_transaction_hourly_count)
     st.metric(
-        label='trx count',
+        label='Overall transaction count',
         value=f"{cnt['cnt'][0]}"
     )
+with middle:
+    cancellation_percentage = client.query_df(queries.cancellation_percentage_query)
+    st.metric(
+        label="% of cancellations",
+        value=f"{cancellation_percentage['canc_perc'][0]}"
+            )
 with right:
     kafka_cnt = client.query_df(queries.real_time_kafka_counter)
     st.metric(
-            label='kafka last 5 minutes event counter',
+            label='Kafka last 10 minute event counter',
             value=f"{kafka_cnt['cnt'].iloc[0]:,}"
             )
 left, right = st.columns([1, 1])
@@ -180,9 +185,6 @@ cohort_chart = px.imshow(
         )
 st.plotly_chart(cohort_chart, width="content")
 
-st.subheader("Cancellations")
-cancellation_percentage = client.query_df(queries.cancellation_percentage_query)
-st.metric(
-    label="% of cancellations",
-    value=f"{cancellation_percentage['canc_perc'][0]}"
-        )
+st.subheader("Cancellation reasons")
+cancellations_df = client.query_df(queries.cancellation_reasons)
+st.dataframe(cancellations_df, width="content", hide_index=True)
